@@ -34,7 +34,7 @@ route.post("/signup", (req, resp) => {
     text: `Hi! There, You have recently visited 
              our website and entered your email.
              Please follow the given link to verify your email
-             http://localhost:2700/verify/${token}
+             https://sore-lime-antelope-cape.cyclic.app/verify/${token}
              Thanks`,
   };
   transporter.sendMail(mailConfigurations, function (error, info) {
