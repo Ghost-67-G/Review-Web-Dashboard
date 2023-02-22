@@ -5,9 +5,9 @@ const path = require("path");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: "dgjsh3d3n",
-  api_key: "244459248568857",
-  api_secret: "jsK9tbnB4x8PwCcHtuvzSgTNPqY",
+  cloud_name: "dsh0ntpca",
+  api_key: "279624179884187",
+  api_secret: "f6MZlhDby1nm6rN9cjHuYxY3vhk",
   // secure: true,
 });
 

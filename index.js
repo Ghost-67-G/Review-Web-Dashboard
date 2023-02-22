@@ -13,6 +13,8 @@ app.use(userRoute)
 app.use(companyRoute)
 app.use(searchRoute)
 app.use(reviewRoute)
+
+
 app.use(myExpress.static(path.resolve(__dirname,'build')));
 
 app.get("*",(req,resp)=>{

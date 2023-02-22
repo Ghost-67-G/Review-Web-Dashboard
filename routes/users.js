@@ -3,17 +3,25 @@ const { default: axios } = require("axios");
 const User = require("../db/models/users");
 const jsonwebtoken = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
+const url = require('url')
+
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   secure:true,
   auth: {
-    user: 'ayannaseer70065988@gmail.com',
-    pass: "obbnzwostcxlofgi",
+    user: 'custmerg476@gmail.com',
+    pass: "xjgmmgsipkvezxaf",
   },
 });
 
 route.post("/signup", (req, resp) => {
+  originalUrl = url.format({
+    protocol: req.protocol,
+    host: req.get('host'),
+    // pathname: req.originalUrl,
+  })
+  console.log(originalUrl)
   const token = jsonwebtoken.sign(
     {
       data: req.body,
@@ -23,7 +31,7 @@ route.post("/signup", (req, resp) => {
   );
   const mailConfigurations = {
     // It should be a string of sender/server email
-    from: "ayanaseer70065988@gmail.com",
+    from: "custmerg476@gmail.com",
   
     to: req.body.user_email,
   
@@ -34,7 +42,7 @@ route.post("/signup", (req, resp) => {
     text: `Hi! There, You have recently visited 
              our website and entered your email.
              Please follow the given link to verify your email
-             https://sore-lime-antelope-cape.cyclic.app/verify/${token}
+             ${originalUrl}/verify/${token}
              Thanks`,
   };
   transporter.sendMail(mailConfigurations, function (error, info) {
@@ -46,8 +54,7 @@ route.post("/signup", (req, resp) => {
       console.log(info);
   }
   });
-
-
+  resp.json({success:true})
 });
 
 route.get('/verify/:token([a-zA-Z0-9-_=]+\.[a-zA-Z0-9-_=]+\.[a-zA-Z0-9-_.+/=]*)', (req, res)=>{
