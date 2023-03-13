@@ -25,8 +25,8 @@ const upload = multer({
 // let upload = multer({ storage: storage });
 
 route.post("/add-company", upload.single("company_logo"), async (req, resp) => {
-  cloudinary.uploader.upload(req.file.path,async (err, result) => {
-    req.body.company_logo = result.url
+  cloudinary.uploader.upload(req.file.path, async (err, result) => {
+    req.body.company_logo = result.url;
     let company = new Company(req.body);
     await company.save();
   });
@@ -41,21 +41,24 @@ route.delete("/delete-company", async (req, resp) => {
   resp.json({ success: true });
 });
 
-
 route.get("/for-update-company", async (req, resp) => {
   let company = await Company.findById(req.query.id);
   resp.json({ company });
 });
 
-route.put(
-  "/update-company",
-  async (req, resp) => {
-    let resp = await Company.findByIdAndUpdate(req.body.id, req.body);
-    if(resp){
-      resp.json({ success: true });
-    }
+route.put("/update-company", async (req, resp) => {
+  let response = await Company.findByIdAndUpdate(req.body.id, req.body);
+  if (response) {
+    resp.json({ success: true });
   }
-);
+});
+
+route.get("/getcompanyid", async (req, resp) => {
+  let response = await Company.findOne({company_name:req.query.companyName})
+  if(response){
+    resp.json({companyId:response._doc._id})
+  }
+});
 
 route.get("/get-companies", async (req, resp) => {
   let companies = await Company.find();
