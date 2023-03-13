@@ -5,9 +5,9 @@ const path = require("path");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: "dsh0ntpca",
-  api_key: "279624179884187",
-  api_secret: "f6MZlhDby1nm6rN9cjHuYxY3vhk",
+  cloud_name: "dcia0chgc",
+  api_key: "384736152285386",
+  api_secret: "HPJ8EK-v8LBzS2XtmkFLe-_4YRE",
   // secure: true,
 });
 
@@ -46,12 +46,14 @@ route.get("/for-update-company", async (req, resp) => {
   let company = await Company.findById(req.query.id);
   resp.json({ company });
 });
+
 route.put(
   "/update-company",
-  upload.single("company_logo"),
   async (req, resp) => {
-    await Company.findByIdAndUpdate(req.body._id, req.body);
-    resp.json({ success: true });
+    let resp = await Company.findByIdAndUpdate(req.body.id, req.body);
+    if(resp){
+      resp.json({ success: true });
+    }
   }
 );
 
